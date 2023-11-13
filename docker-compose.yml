@@ -1,0 +1,49 @@
+version: '3'
+
+services:
+
+  php:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ./:/var/www
+    depends_on:
+      - mysql
+
+  mysql:
+    image: mysql:5.7
+    restart: always
+    container_name: shop-database
+    working_dir: /application
+    volumes:
+      - .:/application
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: shop
+      MYSQL_USER: user
+      MYSQL_PASSWORD: user
+
+  caddy:
+    image: caddy:2-alpine
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile
+      - ./:/var/www
+    ports:
+      - "8080:80"
+    depends_on:
+      - php
+#
+#  redis:
+#    image: redis:7.2
+#    container_name: shop-redis
+#    ports:
+#      - "6382:6379"
+#
+#  rabbitmq:
+#    image: rabbitmq:3.12-management
+#    ports:
+#      - '5672:5672'
+#      - '15672:15672'
