@@ -10,7 +10,7 @@ final class OrderInput
     public function __construct(
         public int $totalPrice,
         public \DateTimeImmutable $orderDate,
-        /** @var OrderDetails[] $orderDetails */
+        /** @var OrderDetailsInput[] $orderDetails */
         public array $orderDetails,
     )
     {

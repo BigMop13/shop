@@ -15,12 +15,6 @@ final class OrderDetailsFactory
         return (new OrderDetails())
             ->setOrder($order)
             ->setProduct($product)
-            ->setPrice($this->getOrderPrice($product->getPrice(), $quantity))
             ->setQuantity($quantity);
-    }
-
-    private function getOrderPrice(int $price, int $quantity): int
-    {
-        return $price * $quantity;
     }
 }

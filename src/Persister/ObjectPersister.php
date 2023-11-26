@@ -16,4 +16,16 @@ final readonly class ObjectPersister
         $this->entityManager->persist($object);
         $this->entityManager->flush();
     }
+
+    /**
+     * @param Object[] $objects
+     */
+    public function saveMultipleObjects(array $objects): void
+    {
+        foreach($objects as $object){
+            $this->entityManager->persist($object);
+        }
+
+        $this->entityManager->flush();
+    }
 }
