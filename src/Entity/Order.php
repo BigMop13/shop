@@ -4,8 +4,8 @@ namespace App\Entity;
 
 use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\Post;
-use App\Controller\PlaceOrder;
-use App\Controller\UserController;
+use ApiPlatform\Metadata\Tests\Fixtures\Metadata\Get;
+use App\Controller\PlaceOrderController;
 use App\Repository\OrderRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -15,8 +15,13 @@ use Doctrine\ORM\Mapping as ORM;
     operations: [
         new Post(
             uriTemplate: 'place_order',
-            controller: PlaceOrder::class,
+            controller: PlaceOrderController::class,
             name: 'place_order',
+        ),
+        new Get(
+            uriTempalate: 'get_user_orders',
+            controller: PlaceOrderController::class,
+            name: 'get_user_orders',
         )
     ],
     normalizationContext: ['groups' => ['user:read']],
