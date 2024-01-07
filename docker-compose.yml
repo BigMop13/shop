@@ -14,13 +14,12 @@ services:
   mysql:
     image: docker.io/mysql:5.7.33
     platform: linux/amd64
-    restart: always
     container_name: shop-database
     working_dir: /application
     volumes:
       - .:/application
     ports:
-      - "3306:3306"
+      - "3307:3306"
     environment:
       MYSQL_ROOT_PASSWORD: password
       MYSQL_DATABASE: shop
@@ -33,7 +32,7 @@ services:
       - ./Caddyfile:/etc/caddy/Caddyfile
       - ./:/var/www
     ports:
-      - "8080:80"
+      - "8090:80"
     depends_on:
       - php
 
@@ -41,7 +40,7 @@ services:
     image: redis:7.2
     container_name: shop-redis
     ports:
-      - "6382:6379"
+      - "6383:6379"
 #
 #  rabbitmq:
 #    image: rabbitmq:3.12-management
