@@ -1,0 +1,13 @@
+snc_redis:
+    clients:
+        default:
+            type: "predis" # or "phpredis", or "relay"
+            alias: default
+            dsn:
+                - redis://localhost:6382
+            options:
+                replication: sentinel
+                service: mymaster
+                parameters:
+                    database: 1
+                    password: pass
