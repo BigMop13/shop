@@ -19,7 +19,7 @@ use Doctrine\ORM\Mapping as ORM;
             name: 'place_order',
         ),
         new Get(
-            uriTempalate: 'get_user_orders',
+            uriTemplate: 'get_user_orders',
             controller: PlaceOrderController::class,
             name: 'get_user_orders',
         )

@@ -31,7 +31,6 @@ final class PlaceOrderController extends AbstractController
             return new JsonResponse(self::ERROR_MESSAGE, Response::HTTP_INTERNAL_SERVER_ERROR);
         }
 
-
         return new JsonResponse('Order places successfully', Response::HTTP_CREATED);
     }
 }
