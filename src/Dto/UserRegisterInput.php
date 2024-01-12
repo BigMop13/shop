@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Dto;
@@ -13,7 +14,6 @@ final readonly class UserRegisterInput
         #[Assert\PasswordStrength(message: 'Hasło musi byc wystarczająco silne')]
         public mixed $password,
         public mixed $createdAt = new \DateTimeImmutable(),
-    )
-    {
+    ) {
     }
 }

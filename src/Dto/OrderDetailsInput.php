@@ -10,7 +10,6 @@ final class OrderDetailsInput
         public int $orderId,
         public int $productId,
         public int $quantity,
-    )
-    {
+    ) {
     }
 }

@@ -15,11 +15,11 @@ use Symfony\Component\Serializer\SerializerInterface;
 final class PlaceOrderController extends AbstractController
 {
     private const ERROR_MESSAGE = 'Unexpected error occured during processing your order, try again in a moment or contact our customer service';
+
     public function __construct(
         private readonly SerializerInterface $serializer,
         private readonly CreateFullOrder $createFullOrder,
-    )
-    {
+    ) {
     }
 
     public function __invoke(Request $request): JsonResponse

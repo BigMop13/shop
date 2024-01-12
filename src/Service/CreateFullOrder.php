@@ -23,8 +23,7 @@ final readonly class CreateFullOrder
         private OrderFactory $orderFactory,
         private ProductRepository $productRepository,
         private CalculateOrderPrice $calculateOrderPrice,
-    )
-    {
+    ) {
     }
 
     public function saveOrder(OrderInput $orderInput, User $user): void
@@ -38,13 +37,14 @@ final readonly class CreateFullOrder
 
     /**
      * @param OrderDetailsInput[] $orderDetails
+     *
      * @return OrderDetails[]
      */
     private function createOrderDetails(array $orderDetails, Order $order): array
     {
         $orderDetailsArray = [];
 
-        foreach ($orderDetails as $orderDetail){
+        foreach ($orderDetails as $orderDetail) {
             $orderDetailsArray[] = $this->orderDetailsFactory->create(
                 order: $order,
                 product: $this->productRepository->find($orderDetail->productId),

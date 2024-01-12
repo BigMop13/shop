@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Service;
@@ -15,8 +16,7 @@ final readonly class RegisterUser
         private UserFactory $userFactory,
         private UserPasswordHasherInterface $passwordHasher,
         private ObjectPersister $persister,
-    )
-    {
+    ) {
     }
 
     public function register(UserRegisterInput $registerInput): void

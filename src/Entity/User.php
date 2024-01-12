@@ -3,9 +3,7 @@
 namespace App\Entity;
 
 use ApiPlatform\Metadata\ApiResource;
-use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\Post;
-use App\Controller\CheckUserController;
 use App\Controller\UserController;
 use App\Repository\UserRepository;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -18,10 +16,10 @@ use Symfony\Component\Serializer\Annotation\Groups;
 #[ApiResource(
     operations: [
         new Post(
-        uriTemplate: 'register_user',
-        controller: UserController::class,
-        name: 'register',
-        )
+            uriTemplate: 'register_user',
+            controller: UserController::class,
+            name: 'register',
+        ),
     ],
     normalizationContext: ['groups' => ['user:read']],
     denormalizationContext: ['groups' => ['user:write']],
@@ -80,7 +78,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     public function getUserIdentifier(): string
     {
-        return (string)$this->email;
+        return (string) $this->email;
     }
 
     /**
@@ -113,9 +111,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    /**
-     * @return \DateTimeImmutable
-     */
     public function getCreatedAt(): \DateTimeImmutable
     {
         return $this->createdAt;
