@@ -15,7 +15,7 @@ final readonly class CalculateOrderPrice
     {
         $totalPrice = 0;
 
-        foreach ($orderDetails as $orderDetail){
+        foreach ($orderDetails as $orderDetail) {
             $totalPrice += $orderDetail->getQuantity() * $orderDetail->getProduct()->getPrice();
         }
 

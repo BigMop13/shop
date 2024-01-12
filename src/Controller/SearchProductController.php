@@ -14,8 +14,7 @@ final class SearchProductController extends AbstractController
 {
     public function __construct(
         private readonly RedisRepository $redisRepository,
-    )
-    {
+    ) {
     }
 
     #[Route(path: 'api/products_searcher', name: 'products_searcher', methods: Request::METHOD_GET)]

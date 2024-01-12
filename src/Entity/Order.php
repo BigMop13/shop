@@ -22,7 +22,7 @@ use Doctrine\ORM\Mapping as ORM;
             uriTemplate: 'get_user_orders',
             controller: PlaceOrderController::class,
             name: 'get_user_orders',
-        )
+        ),
     ],
     normalizationContext: ['groups' => ['user:read']],
     denormalizationContext: ['groups' => ['user:write']],

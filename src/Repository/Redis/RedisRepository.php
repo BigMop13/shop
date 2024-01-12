@@ -2,11 +2,10 @@
 
 namespace App\Repository\Redis;
 
-use App\Repository\Redis\RedisClient;
-
 final readonly class RedisRepository
 {
     private const PRODUCTS_SET_NAME = 'productsSet';
+
     public function __construct(private RedisClient $client)
     {
     }

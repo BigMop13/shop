@@ -1,9 +1,8 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Dto;
-
-use App\Entity\OrderDetails;
 
 final class OrderInput
 {
@@ -12,7 +11,6 @@ final class OrderInput
         public \DateTimeImmutable $orderDate,
         /** @var OrderDetailsInput[] $orderDetails */
         public array $orderDetails,
-    )
-    {
+    ) {
     }
 }

@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Persister;
@@ -11,18 +12,18 @@ final readonly class ObjectPersister
     {
     }
 
-    public function saveObject(Object $object): void
+    public function saveObject(object $object): void
     {
         $this->entityManager->persist($object);
         $this->entityManager->flush();
     }
 
     /**
-     * @param Object[] $objects
+     * @param object[] $objects
      */
     public function saveMultipleObjects(array $objects): void
     {
-        foreach($objects as $object){
+        foreach ($objects as $object) {
             $this->entityManager->persist($object);
         }
 
