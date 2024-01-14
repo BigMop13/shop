@@ -15,6 +15,7 @@ use Symfony\Component\Serializer\SerializerInterface;
 final class PlaceOrderController extends AbstractController
 {
     private const ERROR_MESSAGE = 'Unexpected error occured during processing your order, try again in a moment or contact our customer service';
+    final public const SUCCESS_MESSAGE = 'Order placed successfully';
 
     public function __construct(
         private readonly SerializerInterface $serializer,
@@ -31,6 +32,6 @@ final class PlaceOrderController extends AbstractController
             return new JsonResponse(self::ERROR_MESSAGE, Response::HTTP_INTERNAL_SERVER_ERROR);
         }
 
-        return new JsonResponse('Order places successfully', Response::HTTP_CREATED);
+        return new JsonResponse(self::SUCCESS_MESSAGE, Response::HTTP_CREATED);
     }
 }
