@@ -36,20 +36,20 @@ final readonly class PlaceOrderListener implements EventSubscriberInterface
 
     public function updateProductStockQuantity(RequestEvent $event): void
     {
-        $request = $event->getRequest();
-        $response = $event->getResponse();
-
-        if (Request::METHOD_POST === $request->getMethod() && PlaceOrderController::SUCCESS_MESSAGE === $response->getContent()) {
-            $orderInput = $this->serializer->deserialize($request->getContent(), OrderInput::class, 'json');
-
-            foreach ($orderInput->orderDetails as $orderDetails) {
-                $this->updateProductStockQuantity->updateStockQuantity(
-                    product: $this->productRepository->find($orderDetails->productId),
-                    quantity: $orderDetails->quantity,
-                );
-            }
-
-            $this->entityManager->flush();
-        }
+//        $request = $event->getRequest();
+//        $response = $event->getResponse();
+//
+//        if (Request::METHOD_POST === $request->getMethod() && PlaceOrderController::SUCCESS_MESSAGE === $response->getContent()) {
+////            $orderInput = $this->serializer->deserialize($request->getContent(), OrderInput::class, 'json');
+//
+//            foreach ($orderInput->orderDetails as $orderDetails) {
+//                $this->updateProductStockQuantity->updateStockQuantity(
+//                    product: $this->productRepository->find($orderDetails->productId),
+//                    quantity: $orderDetails->quantity,
+//                );
+//            }
+//
+//            $this->entityManager->flush();
+//        }
     }
 }
