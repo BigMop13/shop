@@ -68,8 +68,6 @@ final class StartDateSeederCommand extends Command
     {
         $products = [];
         $laptops = ['laptop 1', 'laptop 2', 'laptop 3', 'laptop 4', 'laptop 5'];
-        $computers = ['computer 1', 'computer 2'];
-        $mouses = ['mouse 1', 'mouse 2', 'mouse 3', 'mouse 4', 'mouse 5', 'mouse 6', 'mouse 7', 'mouse 8'];
 
         $categoriesName = ProductCategoryDictionary::getProductCategories();
 
@@ -78,7 +76,8 @@ final class StartDateSeederCommand extends Command
                 ->setName($laptop)
                 ->setDescription('Najnowocześniejsze laptopy')
                 ->setPrice(1500)
-                ->setStockQuantity(10);
+                ->setStockQuantity(10)
+                ->setPhoto('https://www.google.com/url?sa=i&url=https%3A%2F%2Fen.wikipedia.org%2Fwiki%2FShrek_%2528character%2529&psig=AOvVaw1DDaLFWAB7L7EKjybgkCun&ust=1711147314570000&source=images&cd=vfe&opi=89978449&ved=0CBIQjRxqFwoTCKCgvdC2hoUDFQAAAAAdAAAAABAE');
         }
 
         return $products;
@@ -100,7 +99,8 @@ final class StartDateSeederCommand extends Command
                 ->setName($mouse)
                 ->setDescription('Najnowocześniejsze myszki')
                 ->setPrice(400)
-                ->setStockQuantity(10);
+                ->setStockQuantity(10)
+                ->setPhoto('https://www.google.com/url?sa=i&url=https%3A%2F%2Fen.wikipedia.org%2Fwiki%2FShrek_%2528character%2529&psig=AOvVaw1DDaLFWAB7L7EKjybgkCun&ust=1711147314570000&source=images&cd=vfe&opi=89978449&ved=0CBIQjRxqFwoTCKCgvdC2hoUDFQAAAAAdAAAAABAE');
         }
 
         return $products;
@@ -121,7 +121,8 @@ final class StartDateSeederCommand extends Command
                 ->setName($computer)
                 ->setDescription('Najnowocześniejsze komputery')
                 ->setPrice(7000)
-                ->setStockQuantity(10);
+                ->setStockQuantity(10)
+                ->setPhoto('https://www.google.com/url?sa=i&url=https%3A%2F%2Fen.wikipedia.org%2Fwiki%2FShrek_%2528character%2529&psig=AOvVaw1DDaLFWAB7L7EKjybgkCun&ust=1711147314570000&source=images&cd=vfe&opi=89978449&ved=0CBIQjRxqFwoTCKCgvdC2hoUDFQAAAAAdAAAAABAE');
         }
 
         return $products;
