@@ -37,10 +37,15 @@ services:
       - php
 
   redis:
-    image: redis:7.2
-    container_name: shop-redis
+    image: redislabs/redisearch:latest
+    platform: linux/amd64
     ports:
-      - "6383:6379"
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+
+volumes:
+  redis_data:
 #
 #  rabbitmq:
 #    image: rabbitmq:3.12-management

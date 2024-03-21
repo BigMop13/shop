@@ -2,23 +2,43 @@
 
 namespace App\Repository\Redis;
 
+use App\Dto\RedisProductSearchSingleOutput;
+
 final readonly class RedisRepository
 {
-    private const PRODUCTS_SET_NAME = 'productsSet';
+    private const PRODUCTS_REDIS_INDEX = 'productIndex';
 
     public function __construct(private RedisClient $client)
     {
     }
 
-    /**
-     * @return string[]
-     */
     public function getProductsFromSearcher(string $searcherInput): array
     {
-        $allProducts = $this->client->getRedisClient()->smembers(self::PRODUCTS_SET_NAME);
+        return $this->transformSearchQueryIntoObjects($this->client->getRedisClient()->executeRaw(['FT.SEARCH', self::PRODUCTS_REDIS_INDEX, $searcherInput.'*', 'LIMIT', '0', '5']));
+    }
 
-        return array_filter($allProducts, function (string $product) use ($searcherInput): bool {
-            return str_contains($product, $searcherInput);
-        });
+    /**
+     * @return RedisProductSearchSingleOutput[]
+     */
+    private function transformSearchQueryIntoObjects(array $redisSearchQueryResult): array
+    {
+        $products = [];
+        $count = count($redisSearchQueryResult);
+
+        for ($i = 1; $i < $count; $i += 2) {
+            $id = $redisSearchQueryResult[$i];
+            $details = $redisSearchQueryResult[$i + 1];
+
+            $productDto = new RedisProductSearchSingleOutput(
+                $id,
+                $details[1], // price
+                $details[3], // photo
+                $details[5]  // name
+            );
+
+            $products[] = $productDto;
+        }
+
+        return $products;
     }
 }

@@ -47,6 +47,9 @@ class Product
     #[ORM\OneToMany(mappedBy: 'productId', targetEntity: OrderDetails::class)]
     private Collection $orderDetails;
 
+    #[ORM\Column(length: 255)]
+    private ?string $photo = null;
+
     public function __construct()
     {
         $this->orderDetails = new ArrayCollection();
@@ -143,6 +146,18 @@ class Product
                 $orderDetail->setProduct(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getPhoto(): ?string
+    {
+        return $this->photo;
+    }
+
+    public function setPhoto(string $photo): static
+    {
+        $this->photo = $photo;
 
         return $this;
     }
