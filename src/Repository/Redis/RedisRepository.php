@@ -28,12 +28,11 @@ final readonly class RedisRepository
         for ($i = 1; $i < $count; $i += 2) {
             $id = $redisSearchQueryResult[$i];
             $details = $redisSearchQueryResult[$i + 1];
-
             $productDto = new RedisProductSearchSingleOutput(
                 $id,
                 $details[1], // price
-                $details[3], // photo
-                $details[5]  // name
+                $details[5], // photo
+                $details[3],  // name
             );
 
             $products[] = $productDto;
