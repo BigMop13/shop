@@ -27,7 +27,6 @@ final readonly class UserController
         $userData = $this->serializer->deserialize($request->getContent(), UserRegisterInput::class, 'json');
         $this->registerUser->register($userData);
 
-        // validate input
         return new JsonResponse('', Response::HTTP_NO_CONTENT);
     }
 }
