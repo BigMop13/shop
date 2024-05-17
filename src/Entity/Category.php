@@ -31,7 +31,7 @@ class Category
     #[Groups(['product:read', 'category:read'])]
     private ?string $description = null;
 
-    #[ORM\OneToMany(mappedBy: 'categoryId', targetEntity: Product::class)]
+    #[ORM\OneToMany(mappedBy: 'category', targetEntity: Product::class)]
     private Collection $products;
 
     public function __construct()

@@ -14,7 +14,7 @@ RUN apt-get update && apt-get install -y \
 
 # Install PHP extensions
 RUN docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath gd
-#RUN pecl install amqp && docker-php-ext-enable amqp    uncomment when rabbit is needed
+RUN pecl install amqp && docker-php-ext-enable amqp
 # Copy Composer from the official Composer image
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 

@@ -10,10 +10,10 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpKernel\Attribute\AsController;
 
 #[AsController]
-final class GetUserOrders extends AbstractController
+final class GetUserOrdersHistoryController extends AbstractController
 {
     public function __construct(
-        private OrderRepository $orderRepository,
+        private readonly OrderRepository $orderRepository,
     ) {
     }
 

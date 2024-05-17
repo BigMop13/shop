@@ -4,6 +4,8 @@ namespace App\Entity;
 
 use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\Post;
+use ApiPlatform\Metadata\Tests\Fixtures\Metadata\Get;
+use App\Controller\GetUserOrdersHistoryController;
 use App\Controller\UserController;
 use App\Repository\UserRepository;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -19,6 +21,11 @@ use Symfony\Component\Serializer\Annotation\Groups;
             uriTemplate: 'register_user',
             controller: UserController::class,
             name: 'register',
+        ),
+        new Get(
+            uriTemplate: '/history/orders',
+            controller: GetUserOrdersHistoryController::class,
+            name: 'get_user_orders',
         ),
     ],
     normalizationContext: ['groups' => ['user:read']],
@@ -46,7 +53,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private \DateTimeImmutable $createdAt;
 
-    #[ORM\OneToMany(mappedBy: 'userId', targetEntity: Order::class)]
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Order::class)]
     private Collection $orders;
 
     public function __construct()

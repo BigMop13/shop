@@ -25,6 +25,9 @@ class OrderRepository extends ServiceEntityRepository
     public function findOrdersByUser(User $user): array
     {
         return $this->createQueryBuilder('o')
+            ->select('o', 'od', 'p')
+            ->leftJoin('o.orderDetails', 'od')
+            ->leftJoin('od.product', 'p')
             ->andWhere('o.user = :user')
             ->setParameter('user', $user)
             ->orderBy('o.id', 'DESC')

@@ -4,12 +4,12 @@ namespace App\Entity;
 
 use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\Post;
-use ApiPlatform\Metadata\Tests\Fixtures\Metadata\Get;
 use App\Controller\PlaceOrderController;
 use App\Repository\OrderRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ApiResource(
     operations: [
@@ -17,11 +17,6 @@ use Doctrine\ORM\Mapping as ORM;
             uriTemplate: 'place_order',
             controller: PlaceOrderController::class,
             name: 'place_order',
-        ),
-        new Get(
-            uriTemplate: 'get_user_orders',
-            //            controller: PlaceOrderController::class,
-            name: 'get_user_orders',
         ),
     ],
     normalizationContext: ['groups' => ['order:read']],
@@ -41,16 +36,24 @@ class Order
     private ?User $user = null;
 
     #[ORM\Column]
+    #[Groups(['order:read'])]
     private ?int $totalPrice = null;
 
     #[ORM\Column]
+    #[Groups(['order:read'])]
     private ?\DateTimeImmutable $orderDate = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups(['order:read'])]
     private ?string $status = null;
 
-    #[ORM\OneToMany(mappedBy: 'orderId', targetEntity: OrderDetails::class)]
+    #[ORM\OneToMany(mappedBy: 'order', targetEntity: OrderDetails::class)]
+    #[Groups(['order:read'])]
     private Collection $orderDetails;
+
+    #[ORM\ManyToOne(inversedBy: 'orders')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Client $client = null;
 
     public function __construct()
     {
@@ -136,6 +139,18 @@ class Order
                 $orderDetail->setOrder(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getClient(): ?Client
+    {
+        return $this->client;
+    }
+
+    public function setClient(?Client $client): static
+    {
+        $this->client = $client;
 
         return $this;
     }

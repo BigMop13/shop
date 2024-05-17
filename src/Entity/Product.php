@@ -44,7 +44,7 @@ class Product
     #[Groups(['product:read'])]
     private ?Category $category = null;
 
-    #[ORM\OneToMany(mappedBy: 'productId', targetEntity: OrderDetails::class)]
+    #[ORM\OneToMany(mappedBy: 'product', targetEntity: OrderDetails::class)]
     private Collection $orderDetails;
 
     #[ORM\Column(length: 255)]
