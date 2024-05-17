@@ -28,7 +28,4 @@ security:
             provider: app_user_provider
 
     access_control:
-        - { path: ^/api/login_check, roles: PUBLIC_ACCESS }
-        - { path: ^/api/register, roles: PUBLIC_ACCESS }
-#        - { path: ^/api/*, roles: ROLE_USER }
-
+        - { path: ^/api/history/orders, roles: ROLE_USER }

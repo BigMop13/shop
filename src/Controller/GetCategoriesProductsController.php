@@ -10,8 +10,6 @@ use Symfony\Component\Routing\Annotation\Route;
 
 final class GetCategoriesProductsController extends AbstractController
 {
-    private const URI_QUEY_KEY = 'categoryId';
-
     public function __construct(
         private readonly ProductRepository $productRepository,
     ) {

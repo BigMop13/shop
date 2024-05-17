@@ -1,0 +1,8 @@
+framework:
+    messenger:
+        transports:
+             place_order:
+               dsn: '%env(MESSENGER_TRANSPORT_DSN)%'
+
+        routing:
+             'App\Message\PlaceOrderEvent': place_order

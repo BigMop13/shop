@@ -69,8 +69,6 @@ final class StartDateSeederCommand extends Command
         $products = [];
         $laptops = ['laptop 1', 'laptop 2', 'laptop 3', 'laptop 4', 'laptop 5'];
 
-        $categoriesName = ProductCategoryDictionary::getProductCategories();
-
         foreach ($laptops as $laptop) {
             $products[] = (new Product())
                 ->setName($laptop)

@@ -9,11 +9,13 @@ use App\Dto\OrderInput;
 use App\Entity\Order;
 use App\Entity\OrderDetails;
 use App\Entity\User;
+use App\Factory\ClientFactory;
 use App\Factory\OrderDetailsFactory;
 use App\Factory\OrderFactory;
 use App\Helper\CalculateOrderPrice;
 use App\Persister\ObjectPersister;
 use App\Repository\ProductRepository;
+use Doctrine\ORM\EntityManagerInterface;
 
 final readonly class CreateFullOrder
 {
@@ -23,15 +25,28 @@ final readonly class CreateFullOrder
         private OrderFactory $orderFactory,
         private ProductRepository $productRepository,
         private CalculateOrderPrice $calculateOrderPrice,
+        private ClientFactory $clientFactory,
+        private EntityManagerInterface $entityManager,
     ) {
     }
 
-    public function saveOrder(OrderInput $orderInput, User $user): void
+    public function saveOrder(OrderInput $orderInput, ?User $user): void
     {
-        $order = $this->orderFactory->create($user, $orderInput->totalPrice, $orderInput->orderDate);
+        $client = $this->clientFactory->create($orderInput->client);
+        $this->entityManager->persist($client);
+        $order = $this->orderFactory->create(
+            client: $client,
+            user: $this->prepareUser($user),
+            totalPrice: $orderInput->totalPrice,
+            orderDate: $orderInput->orderDate,
+        );
+
+        $this->entityManager->persist($order);
+        $this->entityManager->flush();
         $orderDetails = $this->createOrderDetails($orderInput->orderDetails, $order);
         $order->setTotalPrice($this->calculateOrderPrice->calculateOrderTotalPrice($orderDetails));
-        $orderDetails[] = $order;
+        $orderDetails[] = $client;
+
         $this->persister->saveMultipleObjects($orderDetails);
     }
 
@@ -53,5 +68,14 @@ final readonly class CreateFullOrder
         }
 
         return $orderDetailsArray;
+    }
+
+    private function prepareUser(?User $user): ?User
+    {
+        if (null !== $user && !$this->entityManager->contains($user)) {
+            return $this->entityManager->find(User::class, $user->getId());
+        }
+
+        return $user;
     }
 }
