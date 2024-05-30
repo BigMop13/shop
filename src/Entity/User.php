@@ -5,6 +5,7 @@ namespace App\Entity;
 use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\Post;
 use ApiPlatform\Metadata\Tests\Fixtures\Metadata\Get;
+use App\Controller\GetUserNameController;
 use App\Controller\GetUserOrdersHistoryController;
 use App\Controller\UserController;
 use App\Repository\UserRepository;
@@ -27,6 +28,11 @@ use Symfony\Component\Serializer\Annotation\Groups;
             controller: GetUserOrdersHistoryController::class,
             name: 'get_user_orders',
         ),
+        new Get(
+            uriTemplate: '/user/client/data',
+            controller: GetUserNameController::class,
+            name: 'get_user_name_surname',
+        )
     ],
     normalizationContext: ['groups' => ['user:read']],
     denormalizationContext: ['groups' => ['user:write']],
