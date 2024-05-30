@@ -16,8 +16,8 @@ final class GetUserNameController extends AbstractController
         $client = $this->getUser()->getClient();
 
         return $this->json([
-            'name' => $client->getUser()->getName(),
-            'surname' => $client->getUser()->getSurname(),
+            'name' => $client->getName(),
+            'surname' => $client->getSurname(),
         ]);
     }
 }
