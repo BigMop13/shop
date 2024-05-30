@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
+use ApiPlatform\Validator\ValidatorInterface;
 use App\Dto\UserRegisterInput;
 use App\Service\RegisterUser;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -13,11 +14,12 @@ use Symfony\Component\HttpKernel\Attribute\AsController;
 use Symfony\Component\Serializer\SerializerInterface;
 
 #[AsController]
-final readonly class UserController
+final readonly class RegisterUserController
 {
     public function __construct(
         private SerializerInterface $serializer,
         private RegisterUser $registerUser,
+        private ValidatorInterface $validator,
     ) {
     }
 
@@ -25,8 +27,10 @@ final readonly class UserController
     {
         /** @var UserRegisterInput $userData */
         $userData = $this->serializer->deserialize($request->getContent(), UserRegisterInput::class, 'json');
+        $this->validator->validate($userData);
+
         $this->registerUser->register($userData);
 
-        return new JsonResponse('', Response::HTTP_NO_CONTENT);
+        return new JsonResponse('', Response::HTTP_CREATED);
     }
 }

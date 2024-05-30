@@ -7,7 +7,7 @@ use ApiPlatform\Metadata\Post;
 use ApiPlatform\Metadata\Tests\Fixtures\Metadata\Get;
 use App\Controller\GetUserNameController;
 use App\Controller\GetUserOrdersHistoryController;
-use App\Controller\UserController;
+use App\Controller\RegisterUserController;
 use App\Repository\UserRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -20,19 +20,19 @@ use Symfony\Component\Serializer\Annotation\Groups;
     operations: [
         new Post(
             uriTemplate: 'register_user',
-            controller: UserController::class,
+            controller: RegisterUserController::class,
             name: 'register',
         ),
         new Get(
-            uriTemplate: '/history/orders',
+            uriTemplate: 'history/orders',
             controller: GetUserOrdersHistoryController::class,
             name: 'get_user_orders',
         ),
         new Get(
-            uriTemplate: '/user/client/data',
+            uriTemplate: 'user_data',
             controller: GetUserNameController::class,
             name: 'get_user_name_surname',
-        )
+        ),
     ],
     normalizationContext: ['groups' => ['user:read']],
     denormalizationContext: ['groups' => ['user:write']],

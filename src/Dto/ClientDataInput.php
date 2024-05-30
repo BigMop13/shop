@@ -20,10 +20,6 @@ final class ClientDataInput
         #[Assert\Length(min: 2, max: 100)]
         public mixed $address,
         #[Assert\Type(type: 'string')]
-        #[Assert\Length(min: 2, max: 100)]
-        #[Assert\Email]
-        public mixed $email,
-        #[Assert\Type(type: 'string')]
         #[Assert\Length(exactly: 9)]
         #[SerializedName('phone_number')]
         public mixed $phoneNumber,

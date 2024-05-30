@@ -15,7 +15,6 @@ final class ClientFactory
             ->setName($clientDataInput->name)
             ->setSurname($clientDataInput->surname)
             ->setAddress($clientDataInput->address)
-            ->setEmail($clientDataInput->email)
             ->setPhoneNumber($clientDataInput->phoneNumber);
     }
 }

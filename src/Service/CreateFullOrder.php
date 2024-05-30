@@ -9,7 +9,6 @@ use App\Dto\OrderInput;
 use App\Entity\Order;
 use App\Entity\OrderDetails;
 use App\Entity\User;
-use App\Factory\ClientFactory;
 use App\Factory\OrderDetailsFactory;
 use App\Factory\OrderFactory;
 use App\Helper\CalculateOrderPrice;
@@ -25,17 +24,14 @@ final readonly class CreateFullOrder
         private OrderFactory $orderFactory,
         private ProductRepository $productRepository,
         private CalculateOrderPrice $calculateOrderPrice,
-        private ClientFactory $clientFactory,
         private EntityManagerInterface $entityManager,
     ) {
     }
 
     public function saveOrder(OrderInput $orderInput, ?User $user): void
     {
-        $client = $this->clientFactory->create($orderInput->client);
-        $this->entityManager->persist($client);
         $order = $this->orderFactory->create(
-            client: $client,
+            client: $user->getClient() ?? null,
             user: $this->prepareUser($user),
             totalPrice: $orderInput->totalPrice,
             orderDate: $orderInput->orderDate,
@@ -45,7 +41,7 @@ final readonly class CreateFullOrder
         $this->entityManager->flush();
         $orderDetails = $this->createOrderDetails($orderInput->orderDetails, $order);
         $order->setTotalPrice($this->calculateOrderPrice->calculateOrderTotalPrice($orderDetails));
-        $orderDetails[] = $client;
+        $orderDetails[] = $user->getClient() ?? null;
 
         $this->persister->saveMultipleObjects($orderDetails);
     }
