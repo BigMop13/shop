@@ -28,13 +28,16 @@ final readonly class CreateFullOrder
     ) {
     }
 
+    /**
+     * @throws \Exception
+     */
     public function saveOrder(OrderInput $orderInput, ?User $user): void
     {
         $order = $this->orderFactory->create(
             client: $user->getClient() ?? null,
             user: $this->prepareUser($user),
             totalPrice: $orderInput->totalPrice,
-            orderDate: $orderInput->orderDate,
+            orderDate: new \DateTimeImmutable($orderInput->orderDate),
         );
 
         $this->entityManager->persist($order);
