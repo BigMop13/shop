@@ -25,9 +25,6 @@ class Client
     private ?string $address = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $email = null;
-
-    #[ORM\Column(length: 255)]
     private ?string $phoneNumber = null;
 
     #[ORM\OneToMany(mappedBy: 'client', targetEntity: Order::class)]
@@ -79,18 +76,6 @@ class Client
     public function setAddress(string $address): static
     {
         $this->address = $address;
-
-        return $this;
-    }
-
-    public function getEmail(): ?string
-    {
-        return $this->email;
-    }
-
-    public function setEmail(string $email): static
-    {
-        $this->email = $email;
 
         return $this;
     }
