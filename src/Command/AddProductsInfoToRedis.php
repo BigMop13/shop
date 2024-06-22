@@ -33,8 +33,6 @@ final class AddProductsInfoToRedis extends Command
                 'product:'.$product->getId(),
                 [
                     'name' => $product->getName(),
-                    'price' => $product->getPrice(),
-                    'photo' => $product->getPhoto(),
                 ]
             );
 

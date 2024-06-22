@@ -14,7 +14,8 @@ final readonly class RedisRepository
 
     public function getProductsFromSearcher(string $searcherInput): array
     {
-        return $this->transformSearchQueryIntoObjects($this->client->getRedisClient()->executeRaw(['FT.SEARCH', self::PRODUCTS_REDIS_INDEX, $searcherInput.'*', 'LIMIT', '0', '5']));
+        return $this->transformSearchQueryIntoObjects($this->client->getRedisClient()
+            ->executeRaw(['FT.SEARCH', self::PRODUCTS_REDIS_INDEX, $searcherInput.'*', 'LIMIT', '0', '5']));
     }
 
     /**
@@ -25,14 +26,9 @@ final readonly class RedisRepository
         $products = [];
         $count = count($redisSearchQueryResult);
 
-        for ($i = 1; $i < $count; $i += 2) {
-            $id = $redisSearchQueryResult[$i];
-            $details = $redisSearchQueryResult[$i + 1];
+        for ($i = 1; $i < $count; $i ++) {
             $productDto = new RedisProductSearchSingleOutput(
-                $id,
-                $details[1], // price
-                $details[5], // photo
-                $details[3],  // name
+                $redisSearchQueryResult[0],
             );
 
             $products[] = $productDto;
