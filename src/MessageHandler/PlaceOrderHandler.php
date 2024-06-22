@@ -15,6 +15,9 @@ final readonly class PlaceOrderHandler
     {
     }
 
+    /**
+     * @throws \Exception
+     */
     public function __invoke(PlaceOrderEvent $placeOrderMessage): void
     {
         $this->createFullOrder->saveOrder($placeOrderMessage->orderInput, $placeOrderMessage->user);
