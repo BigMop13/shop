@@ -67,7 +67,7 @@ final class StartDateSeederCommand extends Command
     private function createLaptops(): array
     {
         $products = [];
-        $laptops = ['laptop 1', 'laptop 2', 'laptop 3', 'laptop 4', 'laptop 5'];
+        $laptops = ['laptop dell', 'laptop acer', 'laptop razer', 'laptop dell xps', 'laptop razer blade'];
 
         foreach ($laptops as $laptop) {
             $products[] = (new Product())
@@ -88,7 +88,7 @@ final class StartDateSeederCommand extends Command
     {
         $products = [];
 
-        $mouses = ['mouse 1', 'mouse 2', 'mouse 3', 'mouse 4', 'mouse 5', 'mouse 6', 'mouse 7', 'mouse 8'];
+        $mouses = ['mouse logitech', 'mouse logitech x', 'mouse logitech u', 'mouse razer small', 'mouse razer big', 'mouse classic', 'mouse retro', 'mouse modernisto'];
 
         $categoriesName = ProductCategoryDictionary::getProductCategories();
 
@@ -110,7 +110,7 @@ final class StartDateSeederCommand extends Command
     private function createComputers(): array
     {
         $products = [];
-        $computers = ['computer 1', 'computer 2'];
+        $computers = ['computer dell biurowy', 'computer dell gamingowy'];
 
         $categoriesName = ProductCategoryDictionary::getProductCategories();
 
