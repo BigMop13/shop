@@ -6,7 +6,7 @@ use App\Dto\RedisProductSearchSingleOutput;
 
 final readonly class RedisRepository
 {
-    private const PRODUCTS_REDIS_INDEX = 'productIndex';
+    public const PRODUCTS_REDIS_INDEX = 'productIndex';
 
     public function __construct(private RedisClient $client)
     {
@@ -26,9 +26,9 @@ final readonly class RedisRepository
         $products = [];
         $count = count($redisSearchQueryResult);
 
-        for ($i = 1; $i < $count; $i ++) {
+        for ($i = 2; $i < $count; $i += 2) {
             $productDto = new RedisProductSearchSingleOutput(
-                $redisSearchQueryResult[0],
+                $redisSearchQueryResult[$i][1],
             );
 
             $products[] = $productDto;

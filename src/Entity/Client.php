@@ -31,7 +31,7 @@ class Client
     private Collection $orders;
 
     #[ORM\OneToOne(inversedBy: 'client', cascade: ['persist', 'remove'])]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\JoinColumn(nullable: true)]
     private ?User $user = null;
 
     public function __construct()
@@ -127,7 +127,7 @@ class Client
         return $this->user;
     }
 
-    public function setUser(User $user): static
+    public function setUser(?User $user): static
     {
         $this->user = $user;
 

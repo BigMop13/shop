@@ -4,6 +4,7 @@ namespace App\Command;
 
 use App\Repository\ProductRepository;
 use App\Repository\Redis\RedisClient;
+use App\Repository\Redis\RedisRepository;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
@@ -26,6 +27,7 @@ final class AddProductsInfoToRedis extends Command
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $redisClient = $this->redisClient->getRedisClient();
+        $redisClient->flushdb();
         $allProducts = $this->productRepository->findAll();
 
         foreach ($allProducts as $product) {
@@ -39,6 +41,19 @@ final class AddProductsInfoToRedis extends Command
             $output->writeln("Imported product: {$product->getName()}");
         }
         $output->writeln('All products imported to Redis successfully.');
+
+        $redisClient->executeRaw([
+            'FT.CREATE',
+            RedisRepository::PRODUCTS_REDIS_INDEX,
+            'ON',
+            'HASH',
+            'PREFIX',
+            '1',
+            'product:',
+            'SCHEMA',
+            'name',
+            'TEXT',
+        ]);
 
         return Command::SUCCESS;
     }
