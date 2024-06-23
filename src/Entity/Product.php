@@ -48,6 +48,7 @@ class Product
     private Collection $orderDetails;
 
     #[ORM\Column(length: 255)]
+    #[Groups(['product:read'])]
     private ?string $photo = null;
 
     public function __construct()
