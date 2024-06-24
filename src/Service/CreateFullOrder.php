@@ -85,6 +85,11 @@ final readonly class CreateFullOrder
     private function prepareClient(?User $user, OrderInput $orderInput): Client
     {
         if ($user) {
+            $client = $user->getClient();
+            if ($client && !$this->entityManager->contains($client)) {
+                return $this->entityManager->find(Client::class, $client->getId());
+            }
+
             return $user->getClient();
         }
         $client = $this->clientFactory->create($orderInput->client);
