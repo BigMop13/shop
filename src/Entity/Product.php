@@ -47,7 +47,7 @@ class Product
     #[ORM\OneToMany(mappedBy: 'product', targetEntity: OrderDetails::class)]
     private Collection $orderDetails;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(type: Types::TEXT)]
     #[Groups(['product:read'])]
     private ?string $photo = null;
 
